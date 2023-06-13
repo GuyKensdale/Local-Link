@@ -3,11 +3,12 @@ import colours from "../constants/colours.js";
 import About from "../Screens/About";
 import Calendar from "../Screens/Calendar";
 import FindCommunity from "../Screens/FindCommunity";
+import { HomepageScreen } from "../Screens/HomepageScreen";
 import ManagementAnnouncements from "../Screens/ManagementAnnouncements";
 import Marketplace from "../Screens/Marketplace";
 import Recommendations from "../Screens/Recommendations";
 import ReportIssue from "../Screens/ReportIssue";
-import LostFound from "../Screens/SignIn";
+import LostFound from "../Screens/LostFound";
 import Header from "./Header";
 import StackNavigator from "./StackNavigator";
 // Import other screens or navigators
@@ -18,7 +19,7 @@ const DrawerNavigator = () => {
   return (
     <Drawer.Navigator
       screenOptions={{
-        headerTitle: (props) => <Header {...props} />,
+        headerTitle: () => <Header />,
         headerStyle: {
           backgroundColor: colours.primary,
         },
@@ -28,18 +29,18 @@ const DrawerNavigator = () => {
         },
       }}
     >
-      <Drawer.Screen name="Home" component={StackNavigator} />
-      <Drawer.Screen name="About your Community" component={About} />
+      <Drawer.Screen name="Home" component={HomepageScreen} />
+      <Drawer.Screen name="About" component={About} />
       <Drawer.Screen
         name="Management Announcements"
         component={ManagementAnnouncements}
       />
       <Drawer.Screen name="Report Issues" component={ReportIssue} />
       <Drawer.Screen name="Calendar" component={Calendar} />
-      <Drawer.Screen name="Lost & Found" component={LostFound} />
+      <Drawer.Screen name="Lost Found" component={LostFound} />
       <Drawer.Screen name="Marketplace" component={Marketplace} />
       <Drawer.Screen name="Recommendations" component={Recommendations} />
-      <Drawer.Screen name="Find Community" component={FindCommunity} />
+      <Drawer.Screen name="FindCommunity" component={FindCommunity} />
     </Drawer.Navigator>
   );
 };

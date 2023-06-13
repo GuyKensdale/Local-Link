@@ -1,19 +1,16 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { NavigationContainer } from "@react-navigation/native";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 
 import { HomepageScreen } from "../Screens/HomepageScreen";
 import SignIn from "../Screens/SignIn";
 import About from "../Screens/About";
-import colours from "../constants/colours";
 import Calendar from "../Screens/Calendar";
-import LostFound from "../Screens/SignIn";
+import LostFound from "../Screens/LostFound";
 import ManagementAnnouncements from "../Screens/ManagementAnnouncements";
 import Marketplace from "../Screens/Marketplace";
 import Recommendations from "../Screens/Recommendations";
 import ReportIssue from "../Screens/ReportIssue";
 import FindCommunity from "../Screens/FindCommunity";
-import Header from "./Header";
 
 const Stack = createNativeStackNavigator();
 
@@ -22,14 +19,6 @@ const StackNavigator = () => {
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
-        // headerTitle: (props) => <Header {...props} />,
-        // headerStyle: {
-        //   backgroundColor: colours.primary,
-        // },
-        // headerTintColor: "#fff",
-        // headerTitleStyle: {
-        //   fontWeight: "bold",
-        // },
       }}
     >
       {/* <Stack.Screen
@@ -37,19 +26,19 @@ const StackNavigator = () => {
           component={SignUp}
           options={{ title: "Create your account" }}
         /> */}
-      <Stack.Screen name="HomepageScreen" component={HomepageScreen} />
+      <Stack.Screen name="Home" component={HomepageScreen} />
       <Stack.Screen name="SignIn" component={SignIn} />
       <Stack.Screen name="About" component={About} />
       <Stack.Screen name="Calendar" component={Calendar} />
-      <Stack.Screen name="LostFound" component={LostFound} />
+      <Stack.Screen name="Lost Found" component={LostFound} />
       <Stack.Screen
         name="ManagementAnnouncements"
         component={ManagementAnnouncements}
       />
       <Stack.Screen name="Marketplace" component={Marketplace} />
       <Stack.Screen name="Recommendations" component={Recommendations} />
-      <Stack.Screen name="ReportIssue" component={ReportIssue} />
-      <Stack.Screen name="FindCommunity" component={FindCommunity} />
+      <Stack.Screen name="Report Issue" component={ReportIssue} />
+      <Stack.Screen name="Find Community" component={FindCommunity} />
     </Stack.Navigator>
   );
 };
