@@ -18,87 +18,37 @@ const Stack = createNativeStackNavigator();
 
 const StackNavigator = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        {/* <Stack.Screen
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+        // headerTitle: (props) => <Header {...props} />,
+        // headerStyle: {
+        //   backgroundColor: colours.primary,
+        // },
+        // headerTintColor: "#fff",
+        // headerTitleStyle: {
+        //   fontWeight: "bold",
+        // },
+      }}
+    >
+      {/* <Stack.Screen
           name="SignUp"
           component={SignUp}
           options={{ title: "Create your account" }}
         /> */}
-        <Stack.Screen
-          name="HomepageScreen"
-          component={HomepageScreen}
-          options={{
-            title: "Homepage",
-            headerStyle: {
-              backgroundColor: colours.primary,
-            },
-            headerTintColor: "#fff",
-            headerTitleStyle: {
-              fontWeight: "bold",
-            },
-          }}
-        />
-        <Stack.Screen
-          name="SignIn"
-          component={SignIn}
-          options={{ title: "Welcome" }}
-        />
-        <Stack.Screen
-          name="About"
-          component={About}
-          options={{
-            title: "About",
-            headerStyle: {
-              backgroundColor: "#f4511e",
-            },
-            headerTintColor: "#fff",
-            headerTitleStyle: {
-              fontWeight: "bold",
-            },
-          }}
-        />
-        <Stack.Screen
-          name="Calendar"
-          component={Calendar}
-          options={{
-            headerTitle: (props) => <Header {...props} />,
-            headerStyle: {
-              backgroundColor: colours.primary,
-            },
-            headerTintColor: "#fff",
-            headerTitleStyle: {
-              fontWeight: "bold",
-            },
-          }}
-        />
-        <Stack.Screen
-          name="LostFound"
-          component={LostFound}
-          options={{ title: "Lost & Found" }}
-        />
-        <Stack.Screen
-          name="ManagementAnnouncements"
-          component={ManagementAnnouncements}
-          options={{ title: "Management Announcements" }}
-        />
-        <Stack.Screen
-          name="Marketplace"
-          component={Marketplace}
-          options={{ title: "Marketplace" }}
-        />
-        <Stack.Screen
-          name="Recommendations"
-          component={Recommendations}
-          options={{ title: "Recommendations" }}
-        />
-        <Stack.Screen
-          name="ReportIssue"
-          component={ReportIssue}
-          options={{ title: "Report an issue" }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+      <Stack.Screen name="HomepageScreen" component={HomepageScreen} />
+      <Stack.Screen name="SignIn" component={SignIn} />
+      <Stack.Screen name="About" component={About} />
+      <Stack.Screen name="Calendar" component={Calendar} />
+      <Stack.Screen name="LostFound" component={LostFound} />
+      <Stack.Screen
+        name="ManagementAnnouncements"
+        component={ManagementAnnouncements}
+      />
+      <Stack.Screen name="Marketplace" component={Marketplace} />
+      <Stack.Screen name="Recommendations" component={Recommendations} />
+      <Stack.Screen name="ReportIssue" component={ReportIssue} />
+    </Stack.Navigator>
   );
 };
 

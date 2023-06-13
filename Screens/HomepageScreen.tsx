@@ -3,7 +3,6 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import colours from "../constants/colours.js";
-import Header from "../components/Header.tsx";
 
 type NavigationItem = {
   id: number;
@@ -43,19 +42,14 @@ export const HomepageScreen: React.FC = () => {
   );
 
   return (
-    <>
-      <Header></Header>
-      <View style={styles.container}>
-        <Text style={styles.h2}>Welcome to COMMUNITY_NAME!</Text>
-        <View style={styles.containerList}>
-          {routes.map((item) => (
-            <React.Fragment key={item.id}>
-              {renderItem({ item })}
-            </React.Fragment>
-          ))}
-        </View>
+    <View style={styles.container}>
+      <Text style={styles.h2}>Welcome to COMMUNITY_NAME!</Text>
+      <View style={styles.containerList}>
+        {routes.map((item) => (
+          <React.Fragment key={item.id}>{renderItem({ item })}</React.Fragment>
+        ))}
       </View>
-    </>
+    </View>
   );
 };
 
