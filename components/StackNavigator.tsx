@@ -12,6 +12,7 @@ import ManagementAnnouncements from "../Screens/ManagementAnnouncements";
 import Marketplace from "../Screens/Marketplace";
 import Recommendations from "../Screens/Recommendations";
 import ReportIssue from "../Screens/ReportIssue";
+import FindCommunity from "../Screens/FindCommunity";
 import Header from "./Header";
 
 const Stack = createNativeStackNavigator();
@@ -48,6 +49,7 @@ const StackNavigator = () => {
       <Stack.Screen name="Marketplace" component={Marketplace} />
       <Stack.Screen name="Recommendations" component={Recommendations} />
       <Stack.Screen name="ReportIssue" component={ReportIssue} />
+      <Stack.Screen name="Find Community" component={FindCommunity} />
     </Stack.Navigator>
   );
 };
