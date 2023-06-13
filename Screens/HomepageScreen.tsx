@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, CommonActions } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import colours from "../constants/colours.js";
 
@@ -30,7 +30,16 @@ export const HomepageScreen: React.FC = () => {
   const navigation = useNavigation<StackNavigationProp<any>>();
 
   const handleLinkPress = (item: NavigationItem) => {
-    navigation.push(item.screen);
+    if (item.screen === "HomepageScreen") {
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{ name: item.screen }],
+        })
+      );
+    } else {
+      navigation.navigate(item.screen);
+    }
   };
 
   const renderItem = ({ item }: { item: NavigationItem }) => (

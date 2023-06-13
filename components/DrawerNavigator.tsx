@@ -2,6 +2,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import colours from "../constants/colours.js";
 import About from "../Screens/About";
 import Calendar from "../Screens/Calendar";
+import FindCommunity from "../Screens/FindCommunity";
 import ManagementAnnouncements from "../Screens/ManagementAnnouncements";
 import Marketplace from "../Screens/Marketplace";
 import Recommendations from "../Screens/Recommendations";
@@ -38,6 +39,7 @@ const DrawerNavigator = () => {
       <Drawer.Screen name="Lost & Found" component={LostFound} />
       <Drawer.Screen name="Marketplace" component={Marketplace} />
       <Drawer.Screen name="Recommendations" component={Recommendations} />
+      <Drawer.Screen name="Find Community" component={FindCommunity} />
     </Drawer.Navigator>
   );
 };

@@ -49,7 +49,7 @@ const StackNavigator = () => {
       <Stack.Screen name="Marketplace" component={Marketplace} />
       <Stack.Screen name="Recommendations" component={Recommendations} />
       <Stack.Screen name="ReportIssue" component={ReportIssue} />
-      <Stack.Screen name="Find Community" component={FindCommunity} />
+      <Stack.Screen name="FindCommunity" component={FindCommunity} />
     </Stack.Navigator>
   );
 };
