@@ -10,7 +10,9 @@ import Recommendations from "../Screens/Recommendations";
 import ReportIssue from "../Screens/ReportIssue";
 import LostFound from "../Screens/LostFound";
 import Header from "./Header";
-import StackNavigator from "./StackNavigator";
+import SignIn from "../Screens/SignIn";
+
+// import StackNavigator from "./StackNavigator";
 
 const Drawer = createDrawerNavigator();
 
@@ -31,15 +33,16 @@ const DrawerNavigator = () => {
       <Drawer.Screen name="Home" component={HomepageScreen} />
       <Drawer.Screen name="About" component={About} />
       <Drawer.Screen
-        name="Management Announcements"
+        name="ManagementAnnouncements"
         component={ManagementAnnouncements}
       />
-      <Drawer.Screen name="Report Issues" component={ReportIssue} />
+      <Drawer.Screen name="ReportIssue" component={ReportIssue} />
       <Drawer.Screen name="Calendar" component={Calendar} />
-      <Drawer.Screen name="Lost Found" component={LostFound} />
+      <Drawer.Screen name="LostFound" component={LostFound} />
       <Drawer.Screen name="Marketplace" component={Marketplace} />
       <Drawer.Screen name="Recommendations" component={Recommendations} />
       <Drawer.Screen name="FindCommunity" component={FindCommunity} />
+      <Drawer.Screen name="SignIn" component={SignIn} />
     </Drawer.Navigator>
   );
 };

@@ -14,7 +14,7 @@ const routes: NavigationItem[] = [
   { id: 1, title: "About", screen: "About" },
   {
     id: 2,
-    title: "ManagementAnnouncements",
+    title: "Management Announcements",
     screen: "ManagementAnnouncements",
   },
   { id: 3, title: "Report Issue", screen: "ReportIssue" },
