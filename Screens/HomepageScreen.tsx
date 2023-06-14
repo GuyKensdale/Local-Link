@@ -77,7 +77,10 @@ export const HomepageScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.h2}>Welcome to {community}!</Text>
+      {!community ? null : (
+        <Text style={styles.h2}>Welcome to {community}!</Text>
+      )}
+
       <View style={styles.containerList}>
         {routes.map((item) => (
           <React.Fragment key={item.id}>{renderItem({ item })}</React.Fragment>
