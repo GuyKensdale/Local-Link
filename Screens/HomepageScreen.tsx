@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { collection, onSnapshot, orderBy, query} from "firebase/firestore";
+import { db } from "../config/firebase";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useNavigation, CommonActions } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -28,6 +30,20 @@ const routes: NavigationItem[] = [
 
 export const HomepageScreen: React.FC = () => {
   const navigation = useNavigation<StackNavigationProp<any>>();
+  const [currentUser, setCurrentUser] = useState('')
+  const [community, setCommunity] = useState('');
+
+useEffect(() => {
+  const q = query(collection(db, 'users'))
+})
+  useEffect(() => { const q = query(collection(db, "CommunityList"), orderBy("name")); 
+* const communityQuery = onSnapshot(q, (querySnapshot) => { 
+* let communityArr: Array<Object> = []; 
+* querySnapshot.forEach((doc) => { communityArr.push({ ...doc.data(), id: doc.id }); }); 
+* setCommunityList(communityArr);
+*  setIsLoading(false); }); 
+* return () => communityQuery(); 
+* }, []);
 
   const handleLinkPress = (item: NavigationItem) => {
     console.log(item.screen);
