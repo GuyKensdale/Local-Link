@@ -14,7 +14,7 @@ const routes: NavigationItem[] = [
   { id: 1, title: "About", screen: "About" },
   {
     id: 2,
-    title: "Management Announcements",
+    title: "ManagementAnnouncements",
     screen: "ManagementAnnouncements",
   },
   { id: 3, title: "Report Issue", screen: "ReportIssue" },
@@ -30,6 +30,7 @@ export const HomepageScreen: React.FC = () => {
   const navigation = useNavigation<StackNavigationProp<any>>();
 
   const handleLinkPress = (item: NavigationItem) => {
+    console.log(item.screen);
     if (item.screen === "HomepageScreen") {
       navigation.dispatch(
         CommonActions.reset({

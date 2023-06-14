@@ -11,7 +11,6 @@ import ReportIssue from "../Screens/ReportIssue";
 import LostFound from "../Screens/LostFound";
 import Header from "./Header";
 import StackNavigator from "./StackNavigator";
-// Import other screens or navigators
 
 const Drawer = createDrawerNavigator();
 

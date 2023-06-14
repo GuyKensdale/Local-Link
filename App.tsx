@@ -10,6 +10,7 @@ export default function App() {
     </NavigationContainer>
   );
 }
+
 // import { createNativeStackNavigator } from "@react-navigation/native-stack";
 // // import SignUp from "./Screens/SignUp";
 // import { HomepageScreen } from "./Screens/HomepageScreen";

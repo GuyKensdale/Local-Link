@@ -30,15 +30,15 @@ const StackNavigator = () => {
       <Stack.Screen name="SignIn" component={SignIn} />
       <Stack.Screen name="About" component={About} />
       <Stack.Screen name="Calendar" component={Calendar} />
-      <Stack.Screen name="Lost Found" component={LostFound} />
+      <Stack.Screen name="LostFound" component={LostFound} />
       <Stack.Screen
         name="ManagementAnnouncements"
         component={ManagementAnnouncements}
       />
       <Stack.Screen name="Marketplace" component={Marketplace} />
       <Stack.Screen name="Recommendations" component={Recommendations} />
-      <Stack.Screen name="Report Issue" component={ReportIssue} />
-      <Stack.Screen name="Find Community" component={FindCommunity} />
+      <Stack.Screen name="ReportIssue" component={ReportIssue} />
+      <Stack.Screen name="FindCommunity" component={FindCommunity} />
     </Stack.Navigator>
   );
 };
