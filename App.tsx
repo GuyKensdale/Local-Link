@@ -2,7 +2,6 @@ import { StyleSheet, Text, View } from "react-native";
 import SignInPage from "./Screens/SignIn";
 import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-// import { createNativeStackNavigator } from "@react-navigation/native-stack";
 // import SignUp from "./Screens/SignUp";
 import { HomepageScreen } from "./Screens/HomepageScreen";
 import About from "./Screens/About";
@@ -14,61 +13,74 @@ import Recommendations from "./Screens/Recommendations";
 import ReportIssue from "./Screens/ReportIssue";
 import FindCommunity from "./Screens/FindCommunity";
 import { QueryClient, QueryClientProvider } from "react-query";
+import Header from "./comp/Header";
+import colours from "./constants/colours";
 
 const queryClient = new QueryClient();
 
 const Drawer = createDrawerNavigator();
-// const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <NavigationContainer>
-        <Drawer.Navigator initialRouteName="HomepageScreen">
+        <Drawer.Navigator
+          initialRouteName="HomepageScreen"
+          screenOptions={{
+            headerTitle: () => <Header />,
+            headerStyle: {
+              backgroundColor: colours.primary,
+            },
+            headerTintColor: "#fff",
+            headerTitleStyle: {
+              fontWeight: "bold",
+            },
+          }}
+        >
           <Drawer.Screen
             name="HomepageScreen"
             component={HomepageScreen}
-            options={{ title: "Create your account" }}
+            options={{ title: "Home" }}
           />
           <Drawer.Screen
             name="SignIn"
             component={SignInPage}
-            options={{ title: "Welcome" }}
+            options={{ title: "Sign In" }}
           />
           <Drawer.Screen
             name="About"
             component={About}
-            options={{ title: "Create your account" }}
+            options={{ title: "About" }}
           />
           <Drawer.Screen
             name="Calendar"
             component={CalendarScreen}
-            options={{ title: "Create your account" }}
+            options={{ title: "Calendar" }}
           />
           <Drawer.Screen
             name="LostFound"
             component={LostFound}
-            options={{ title: "Create your account" }}
+            options={{ title: "Lost & Found" }}
           />
           <Drawer.Screen
             name="ManagementAnnouncements"
             component={ManagementAnnouncements}
-            options={{ title: "Create your account" }}
+            options={{ title: "Management Announcements" }}
           />
           <Drawer.Screen
             name="Marketplace"
             component={Marketplace}
-            options={{ title: "Create your account" }}
+            options={{ title: "Marketplace" }}
           />
           <Drawer.Screen
             name="Recommendations"
             component={Recommendations}
-            options={{ title: "Create your account" }}
+            options={{ title: "Recommendations" }}
           />
           <Drawer.Screen
             name="ReportIssue"
             component={ReportIssue}
-            options={{ title: "Create your account" }}
+            options={{ title: "Report Issue" }}
           />
           <Drawer.Screen
             name="FindCommunity"
