@@ -1,7 +1,8 @@
 import { StyleSheet, Text, View } from "react-native";
 import SignInPage from "./Screens/SignIn";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+// import { createNativeStackNavigator } from "@react-navigation/native-stack";
 // import SignUp from "./Screens/SignUp";
 import { HomepageScreen } from "./Screens/HomepageScreen";
 import About from "./Screens/About";
@@ -13,70 +14,68 @@ import Recommendations from "./Screens/Recommendations";
 import ReportIssue from "./Screens/ReportIssue";
 import FindCommunity from "./Screens/FindCommunity";
 import { QueryClient, QueryClientProvider } from "react-query";
+
 const queryClient = new QueryClient();
-const Stack = createNativeStackNavigator();
+
+const Drawer = createDrawerNavigator();
+// const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <NavigationContainer>
-        <Stack.Navigator>
-          {/* <Stack.Screen
-          name="SignUp"
-          component={SignUp}
-          options={{ title: "Create your account" }}
-        /> */}
-          <Stack.Screen
+        <Drawer.Navigator initialRouteName="HomepageScreen">
+          <Drawer.Screen
             name="HomepageScreen"
             component={HomepageScreen}
             options={{ title: "Create your account" }}
           />
-          <Stack.Screen
+          <Drawer.Screen
             name="SignIn"
             component={SignInPage}
             options={{ title: "Welcome" }}
           />
-          <Stack.Screen
+          <Drawer.Screen
             name="About"
             component={About}
             options={{ title: "Create your account" }}
           />
-          <Stack.Screen
+          <Drawer.Screen
             name="Calendar"
             component={CalendarScreen}
             options={{ title: "Create your account" }}
           />
-          <Stack.Screen
+          <Drawer.Screen
             name="LostFound"
             component={LostFound}
             options={{ title: "Create your account" }}
           />
-          <Stack.Screen
+          <Drawer.Screen
             name="ManagementAnnouncements"
             component={ManagementAnnouncements}
             options={{ title: "Create your account" }}
           />
-          <Stack.Screen
+          <Drawer.Screen
             name="Marketplace"
             component={Marketplace}
             options={{ title: "Create your account" }}
           />
-          <Stack.Screen
+          <Drawer.Screen
             name="Recommendations"
             component={Recommendations}
             options={{ title: "Create your account" }}
           />
-          <Stack.Screen
+          <Drawer.Screen
             name="ReportIssue"
             component={ReportIssue}
             options={{ title: "Create your account" }}
           />
-          <Stack.Screen
+          <Drawer.Screen
             name="FindCommunity"
             component={FindCommunity}
             options={{ title: "Find Community" }}
           />
-        </Stack.Navigator>
+        </Drawer.Navigator>
       </NavigationContainer>
     </QueryClientProvider>
   );

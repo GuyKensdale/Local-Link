@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
+import { CommonActions, useNavigation } from "@react-navigation/native";
+// import { StackNavigationProp } from "@react-navigation/stack";
 import {
   collection,
   onSnapshot,
@@ -36,7 +36,7 @@ const routes: NavigationItem[] = [
 ];
 
 export const HomepageScreen: React.FC = () => {
-  const navigation = useNavigation<StackNavigationProp<any>>();
+  const navigation = useNavigation();
   const [community, setCommunity] = useState("");
 
   useEffect(() => {
@@ -53,7 +53,17 @@ export const HomepageScreen: React.FC = () => {
   }, [community]);
 
   const handleLinkPress = (item: NavigationItem) => {
-    navigation.push(item.screen);
+    console.log(item.screen);
+    if (item.screen === "HomepageScreen") {
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{ name: item.screen }],
+        })
+      );
+    } else {
+      navigation.navigate(item.screen, {});
+    }
   };
 
   const renderItem = ({ item }: { item: NavigationItem }) => (
