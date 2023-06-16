@@ -1,3 +1,4 @@
+import "react-native-gesture-handler";
 import { StyleSheet, Text, View } from "react-native";
 import SignInPage from "./Screens/SignIn";
 import { NavigationContainer } from "@react-navigation/native";
