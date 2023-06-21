@@ -10,7 +10,7 @@ import CalendarScreen from "./Screens/Calendar";
 import LostFound from "./Screens/LostFound";
 import ManagementAnnouncements from "./Screens/ManagementAnnouncements";
 import Marketplace from "./Screens/Marketplace";
-import Recommendations from "./Screens/Recommendations";
+import { Recommendations } from "./Screens/Recommendations";
 import ReportIssue from "./Screens/ReportIssue";
 import FindCommunity from "./Screens/FindCommunity";
 import CreateCommunity from "./Screens/CreateCommunity";
@@ -43,6 +43,10 @@ import MarketplaceItemCard from "./Screens/MarketplaceItemCard";
 import ListItem from "./Screens/ListItem";
 
 import { Ionicons } from "@expo/vector-icons";
+import MaintenanceServices from "./Screens/MaintenanceServices";
+import Restaurants from "./Screens/Restaurants";
+import RecommendationsItemCard from "./Screens/RecommendationsItemCard";
+import AddRecommendation from "./Screens/AddRecommendation";
 
 const Drawer = createDrawerNavigator();
 const queryClient = new QueryClient();
@@ -239,6 +243,47 @@ export default function App() {
               component={ListItem}
               options={{
                 title: "ListItem",
+                drawerItemStyle: {
+                  display: "none",
+                },
+              }}
+            />
+
+            <Drawer.Screen
+              name="MaintenanceServices"
+              component={MaintenanceServices}
+              options={{
+                title: "MaintenanceServices",
+                drawerItemStyle: {
+                  display: "none",
+                },
+              }}
+            />
+            <Drawer.Screen
+              name="Restaurants"
+              component={Restaurants}
+              options={{
+                title: "Restaurants",
+                drawerItemStyle: {
+                  display: "none",
+                },
+              }}
+            />
+            <Drawer.Screen
+              name="RecommendationsItemCard"
+              component={RecommendationsItemCard}
+              options={{
+                title: "RecommendationsItemCard",
+                drawerItemStyle: {
+                  display: "none",
+                },
+              }}
+            />
+            <Drawer.Screen
+              name="AddRecommendation"
+              component={AddRecommendation}
+              options={{
+                title: "AddRecommendation",
                 drawerItemStyle: {
                   display: "none",
                 },
