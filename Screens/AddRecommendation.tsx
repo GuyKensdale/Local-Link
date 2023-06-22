@@ -1,6 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
-import * as ImagePicker from "expo-image-picker";
-
+import React, { useState, useContext } from "react";
 import {
   View,
   Text,
@@ -14,34 +12,17 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { Formik, FormikProps } from "formik";
-import { auth, db, storage } from "../config/firebase";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { auth, db, storage } from "../config/firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import * as yup from "yup";
 import { useNavigation } from "@react-navigation/native";
 import { MyContext } from "../Context";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
-import BackButton from "../comp/BackButton";
 import colours from "../constants/colours";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-
-interface FormValues {
-  itemName: string;
-  description: string;
-  // photoUrl: string;
-  //   date: string;
-  contactEmail: string;
-  price: number;
-}
-
-const formSchema = yup.object({
-  itemName: yup.string().required().min(4),
-  description: yup.string().required().min(4),
-  // photoUrl: yup.string().required().url(),
-  //   date: yup.string().optional(),
-  contactEmail: yup.string().required().email(),
-  price: yup.number().required(),
-});
+import * as ImagePicker from "expo-image-picker";
+import { Picker } from "@react-native-picker/picker";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const buttonPressedStyle = {
   backgroundColor: "#F57C01",
@@ -53,6 +34,31 @@ const buttonDisabledStyle = {
   borderColor: "#AAA",
 };
 
+interface FormValues {
+  name: string;
+  description: string;
+  website: string;
+  phoneNumber: string;
+  category: string;
+  image: string;
+}
+
+const formSchema = yup.object({
+  name: yup.string().required().min(4),
+  description: yup.string().min(4),
+  website: yup.string().url(),
+  phoneNumber: yup.string().required(),
+  category: yup.string().required(),
+  image: yup.string().url(),
+});
+
+const categories = [
+  "Maintenance services",
+  "Restaurants",
+  "Child-friendly",
+  "General services",
+];
+
 const AddRecommendation: React.FC = () => {
   const { userContext } = useContext(MyContext);
   const [isButtonPressed, setButtonPressed] = useState(false);
@@ -60,6 +66,8 @@ const AddRecommendation: React.FC = () => {
   const [currentImage, setCurrentImage] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [downloadUrl, setDownloadUrl] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [showPicker, setShowPicker] = useState(false);
 
   const navigation = useNavigation();
   const userEmail = userContext?.email || "";
@@ -71,9 +79,8 @@ const AddRecommendation: React.FC = () => {
       aspect: [4, 3],
       quality: 1,
     });
-    if (!result.canceled) {
-      const source = { uri: result.assets[0].uri }; // Access the selected asset from the assets array
-      console.log(source);
+    if (!result.cancelled) {
+      const source = { uri: result.uri };
       setCurrentImage(source);
       handleUploadImage(source);
     }
@@ -92,7 +99,6 @@ const AddRecommendation: React.FC = () => {
     uploadTask.on(
       "state_changed",
       (snapshot) => {
-        // Handle progress updates
         const progress = Math.round(
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         );
@@ -105,8 +111,6 @@ const AddRecommendation: React.FC = () => {
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadUrl) => {
           console.log("File available at", downloadUrl);
-
-          // props.setFieldValue("photoUrl", downloadUrl);
           setDownloadUrl(downloadUrl);
           setUploading(false);
           Alert.alert("Photo uploaded");
@@ -121,16 +125,16 @@ const AddRecommendation: React.FC = () => {
   ) => {
     try {
       const docData = {
-        itemName: values.itemName,
+        name: values.name,
         description: values.description,
-        photoUrl: downloadUrl,
-        // date: values.date,
-        contactEmail: values.contactEmail,
-        price: values.price,
+        website: values.website,
+        phoneNumber: values.phoneNumber,
+        category: values.category,
+        image: downloadUrl,
         timestamp: serverTimestamp(),
       };
 
-      await addDoc(collection(db, "marketplace"), docData);
+      await addDoc(collection(db, "recommendations"), docData);
       resetForm();
       setCurrentImage(null);
       setSubmitted(true);
@@ -143,47 +147,50 @@ const AddRecommendation: React.FC = () => {
   };
 
   const showAlert = () => {
-    Alert.alert("Item listed", "The item has been listed successfully.", [
-      { text: "OK", onPress: () => navigation.navigate("Marketplace") },
-    ]);
+    Alert.alert(
+      "Recommendation added",
+      "The recommendation has been added successfully.",
+      [{ text: "OK", onPress: () => navigation.navigate("Recommendations") }]
+    );
   };
 
   return (
     <>
-      <BackButton path="Marketplace" />
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.container}>
-          <Text style={styles.heading}>List your item</Text>
+          <Text style={styles.heading}>Add Recommendation</Text>
           <Formik
             initialValues={{
-              itemName: "",
+              name: "",
               description: "",
-              photoUrl: "",
-              price: 0,
-              contactEmail: userEmail,
+              website: "",
+              phoneNumber: "",
+              category: "",
+              image: "",
             }}
             validationSchema={formSchema}
             onSubmit={handleSubmit}
           >
             {(props: FormikProps<FormValues>) => (
               <View style={styles.form}>
-                <Text style={styles.text}>Item Name:</Text>
+                <Text style={styles.text}>Name:</Text>
                 <TextInput
                   style={styles.input}
-                  placeholder="Enter item name..."
-                  onChangeText={props.handleChange("itemName")}
-                  value={props.values.itemName}
-                  onBlur={props.handleBlur("itemName")}
+                  placeholder="Enter name..."
+                  onChangeText={props.handleChange("name")}
+                  value={props.values.name}
+                  onBlur={props.handleBlur("name")}
                 />
                 <Text style={styles.errorText}>
-                  {props.touched.itemName && props.errors.itemName}
+                  {props.touched.name && props.errors.name}
                 </Text>
+
                 <Text style={styles.text}>Description:</Text>
                 <TextInput
                   multiline
                   minHeight={70}
                   style={styles.input}
-                  placeholder="Enter item description..."
+                  placeholder="Enter description..."
                   onChangeText={props.handleChange("description")}
                   value={props.values.description}
                   onBlur={props.handleBlur("description")}
@@ -191,31 +198,68 @@ const AddRecommendation: React.FC = () => {
                 <Text style={styles.errorText}>
                   {props.touched.description && props.errors.description}
                 </Text>
-                <Text style={styles.text}>Price:</Text>
 
+                <Text style={styles.text}>Website:</Text>
                 <TextInput
                   style={styles.input}
-                  placeholder="Enter price..."
-                  onChangeText={props.handleChange("price")}
-                  value={props.values.price}
-                  onBlur={props.handleBlur("price")}
-                  keyboardType="numeric"
-                  //   onFocus={showDatePicker}
+                  placeholder="Enter website URL..."
+                  onChangeText={props.handleChange("website")}
+                  value={props.values.website}
+                  onBlur={props.handleBlur("website")}
                 />
                 <Text style={styles.errorText}>
-                  {props.touched.price && props.errors.price}
+                  {props.touched.website && props.errors.website}
                 </Text>
-                <Text style={styles.text}>Contact Email:</Text>
+
+                <Text style={styles.text}>Phone Number:</Text>
                 <TextInput
                   style={styles.input}
-                  // placeholder="Enter item photo URL..."
-                  onChangeText={props.handleChange("contactEmail")}
-                  value={props.values.contactEmail}
-                  onBlur={props.handleBlur("contactEmail")}
+                  placeholder="Enter phone number..."
+                  onChangeText={props.handleChange("phoneNumber")}
+                  value={props.values.phoneNumber}
+                  onBlur={props.handleBlur("phoneNumber")}
+                  keyboardType="phone-pad"
                 />
                 <Text style={styles.errorText}>
-                  {props.touched.contactEmail && props.errors.contactEmail}
+                  {props.touched.phoneNumber && props.errors.phoneNumber}
                 </Text>
+                <Text style={styles.label}>Category</Text>
+                <TouchableOpacity onPress={() => setShowPicker(true)}>
+                  <View style={styles.categoryInput}>
+                    <Text style={styles.categoryText}>
+                      {selectedCategory || "Select a category"}
+                    </Text>
+                    <MaterialIcons
+                      name="arrow-drop-down"
+                      size={24}
+                      color="black"
+                    />
+                  </View>
+                </TouchableOpacity>
+                {showPicker && (
+                  <Picker
+                    selectedValue={selectedCategory}
+                    onValueChange={(value) => {
+                      setSelectedCategory(value);
+                      setShowPicker(false);
+                    }}
+                  >
+                    <Picker.Item
+                      label="Maintenance services"
+                      value="Maintenance services"
+                    />
+                    <Picker.Item label="Restaurants" value="Restaurants" />
+                    <Picker.Item
+                      label="Child-friendly"
+                      value="Child-friendly"
+                    />
+                    <Picker.Item
+                      label="General services"
+                      value="General services"
+                    />
+                  </Picker>
+                )}
+
                 <View style={styles.buttonsWrapper}>
                   {!currentImage && (
                     <TouchableOpacity
@@ -249,24 +293,18 @@ const AddRecommendation: React.FC = () => {
                     )}
                   </View>
                 </View>
-
                 <TouchableOpacity
-                  title="List your item"
+                  title="Add Event"
                   onPress={props.handleSubmit}
                   style={[
                     styles.button,
-                    isButtonPressed
-                      ? buttonPressedStyle
-                      : uploading
-                      ? buttonDisabledStyle
-                      : null,
+                    isButtonPressed ? buttonPressedStyle : null,
                   ]}
                   onPressIn={() => setButtonPressed(true)}
                   onPressOut={() => setButtonPressed(false)}
                   activeOpacity={1}
-                  disabled={uploading}
                 >
-                  <Text style={styles.buttonText}>List your item</Text>
+                  <Text style={styles.buttonText}>Add Event</Text>
                 </TouchableOpacity>
               </View>
             )}

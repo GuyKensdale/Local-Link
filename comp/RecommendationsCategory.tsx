@@ -7,6 +7,7 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
+
 import {
   collection,
   onSnapshot,
@@ -51,7 +52,7 @@ const RecommendationsCategory: React.FC<RecommendationsCategoryProps> = ({
   }, [category]);
 
   const handleListItemPress = () => {
-    navigation.navigate("ListItem");
+    navigation.navigate("AddRecommendation");
   };
 
   const handleItemPress = (item: any) => {
@@ -137,6 +138,22 @@ const styles = StyleSheet.create({
   contactEmail: {
     fontFamily: "Poppins_400Regular",
     textAlign: "center",
+    marginBottom: 10,
+  },
+  listItemText: {
+    color: "white",
+    fontFamily: "Poppins_500Medium",
+  },
+  button: {
+    width: "70%",
+    alignSelf: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 1,
+    backgroundColor: "#1B73E7",
+    padding: 10,
+    fontSize: 14,
+    borderRadius: 6,
     marginBottom: 25,
     borderColor: "#1B73E7",
     shadowColor: "#171717",

@@ -81,11 +81,8 @@ export const Recommendations: React.FC = () => {
   return (
     <ScrollView>
       <View style={styles.container}>
-        {userContext?.communityName && (
-          <Text style={styles.h2}>
-            Welcome to {userContext.communityName}! 👋
-          </Text>
-        )}
+        <Text style={styles.h2}>Recommendations</Text>
+
         <View style={styles.containerList}>
           {routes.map((item) => (
             <React.Fragment key={item.id}>
